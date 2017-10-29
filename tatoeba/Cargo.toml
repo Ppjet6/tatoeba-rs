@@ -1,0 +1,12 @@
+[package]
+name = "tatoeba"
+version = "0.1.0"
+authors = ["Maxime “pep” Buquet <pep@bouah.net>"]
+
+[dependencies.diesel]
+features = ["mysql"]
+version = "0.16.0"
+
+[dependencies.diesel_codegen]
+features = ["mysql"]
+version = "0.16.0"
