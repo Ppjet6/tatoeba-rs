@@ -1,0 +1,8 @@
+[package]
+authors = ["Maxime “pep” Buquet <pep@bouah.net>"]
+name = "tatoeba-rs"
+version = "0.1.0"
+
+[dependencies]
+clap = "2.27.1"
+
