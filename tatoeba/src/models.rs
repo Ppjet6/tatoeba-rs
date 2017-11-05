@@ -26,7 +26,6 @@ pub struct Sentence {
     pub user_id: Option<i32>,
     pub created: Option<NaiveDateTime>,
     pub modified: Option<NaiveDateTime>,
-    pub dico_id: Option<i32>,
     pub script: Option<String>,
     pub hash: Vec<u8>,
 }

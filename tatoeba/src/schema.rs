@@ -24,7 +24,6 @@ table! {
         user_id -> Nullable<Integer>,
         created -> Nullable<Datetime>,
         modified -> Nullable<Datetime>,
-        dico_id -> Nullable<Integer>,
         script -> Nullable<Varchar>,
         hash -> Binary,
     }

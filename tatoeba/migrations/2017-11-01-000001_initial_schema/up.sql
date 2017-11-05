@@ -11,7 +11,7 @@ CREATE TABLE `sentences` (
   `user_id` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `dico_id` int(11) DEFAULT NULL,
+  `dico_id` int(11) DEFAULT NULL,  -- legacy, unused. Already removed in the source code
   `hasaudio` enum('no','from_users','shtooka') NOT NULL DEFAULT 'no',
   `script` varchar(4) DEFAULT NULL,
   `hash` binary(16) NOT NULL,
