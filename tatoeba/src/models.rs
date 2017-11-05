@@ -1,5 +1,5 @@
 //
-// Tatoeba - src/lib.rs
+// Tatoeba - src/models.rs
 // Copyright (C) 2017 Maxime “pep” Buquet <pep@bouah.net>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -15,27 +15,28 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#![recursion_limit="256"]
+use chrono::NaiveDateTime;
 
-#[macro_use] extern crate diesel_codegen;
-extern crate chrono;
+#[derive(Queryable, Debug)]
+pub struct Sentence {
+    pub id: i32,
+    pub lang: Option<String>,
+    pub text: Vec<u8>,
+    pub correctness: i8,
+    pub user_id: Option<i32>,
+    pub created: Option<NaiveDateTime>,
+    pub modified: Option<NaiveDateTime>,
+    pub dico_id: Option<i32>,
+    pub script: Option<String>,
+    pub hash: Vec<u8>,
+}
 
-pub mod schema;
-pub mod models;
-
-#[macro_use] extern crate diesel;
-extern crate dotenv;
-
-use diesel::prelude::*;
-use diesel::mysql::MysqlConnection;
-use dotenv::dotenv;
-use std::env;
-
-pub fn establish_connection() -> MysqlConnection {
-    dotenv().ok();
-
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set");
-    MysqlConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
+#[derive(Queryable)]
+pub struct Translation {
+    pub id: i32,
+    pub sentence_id: i32,
+    pub translation_id: i32,
+    pub sentence_lang: Option<String>,
+    pub translation_lang: Option<String>,
+    pub distance: i16,
 }

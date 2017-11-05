@@ -1,5 +1,5 @@
 //
-// Tatoeba - src/lib.rs
+// Tatoeba - src/schema.rs
 // Copyright (C) 2017 Maxime “pep” Buquet <pep@bouah.net>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -15,27 +15,28 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#![recursion_limit="256"]
+table! {
+    sentences (id) {
+        id -> Integer,
+        lang -> Nullable<Varchar>,
+        text -> Varbinary,
+        correctness -> Tinyint,
+        user_id -> Nullable<Integer>,
+        created -> Nullable<Datetime>,
+        modified -> Nullable<Datetime>,
+        dico_id -> Nullable<Integer>,
+        script -> Nullable<Varchar>,
+        hash -> Binary,
+    }
+}
 
-#[macro_use] extern crate diesel_codegen;
-extern crate chrono;
-
-pub mod schema;
-pub mod models;
-
-#[macro_use] extern crate diesel;
-extern crate dotenv;
-
-use diesel::prelude::*;
-use diesel::mysql::MysqlConnection;
-use dotenv::dotenv;
-use std::env;
-
-pub fn establish_connection() -> MysqlConnection {
-    dotenv().ok();
-
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set");
-    MysqlConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
+table! {
+    sentences_translations (id) {
+        id -> Integer,
+        sentence_id -> Integer,
+        translation_id -> Integer,
+        sentence_lang -> Nullable<Varchar>,
+        translation_lang -> Nullable<Varchar>,
+        distance -> Smallint,
+    }
 }
